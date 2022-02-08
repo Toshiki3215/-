@@ -1,0 +1,33 @@
+//敵、マウス追従
+			if (isEnemy == 1)
+			{
+				if (pointer.x > 0 && pointer.x < WIN_WIDTH && pointer.y>0 && pointer.y < WIN_HEIGHT)
+				{
+					for (i = 0; i < MAX_BULLET; i++)
+					{
+						enemy.speedX = (int)(cos(enemy.angle) * 3.0);
+						enemy.speedY = (int)(sin(enemy.angle) * 3.0);
+						int a = enemy.x - pointer.x;
+						int b = enemy.y - pointer.y;
+						int c = pointer.r + enemy.r;
+						if ((c * c) >= (a * a) + (b * b) && enemy.flag == 1)
+						{
+							if (enemy.flag == 1)
+							{
+								PEcollision = 1;
+							}
+						}
+            //追尾処理
+						double ax, ay, bx, by;
+						bx = cos(enemy.angle);
+						by = sin(enemy.angle);
+						ax = pointer.x - (enemy.x);
+						ay = pointer.y - (enemy.y);
+
+						enemy.angle += (ax * by - ay * bx < 0.0) ? +PI / 180 * 8 : -PI / 180 * 8;
+
+						// 移動する
+						enemy.x += enemy.speedX;
+						enemy.y += enemy.speedY;
+					}
+				}
